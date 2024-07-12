@@ -10,6 +10,7 @@ import { toast } from "sonner";
 
 function Room() {
   const [color, setColor] = useState<string>("pink");
+  const [test, setTest] = useState<string>("");
   const { room_id } = useParams();
   const [isOverlayVisible, setOverlayVisible] = useState<boolean>(false);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -30,6 +31,13 @@ function Room() {
     setOverlayVisible(true);
   };
 
+  const handleButtonClick = () => {
+    toast("HELLO");
+    setColor("blue");
+    setOverlayVisible(false);
+    setTest("asdas");
+  };
+
   return (
     <>
       {sessionInit && (
@@ -46,15 +54,8 @@ function Room() {
       </Canvas>
       <Overlay ref={overlayRef} visible={isOverlayVisible}>
         <h1>Welcome to the AR Experience! {room_id}</h1>
-        <p>Click anywhere to close this overlay.</p>
-        <Button
-          onClick={() => {
-            toast("HELLO");
-            setColor("blue");
-          }}
-        >
-          TEST
-        </Button>
+        <p>Click anywhere to close this overlay. {test}</p>
+        <Button onClick={handleButtonClick}>TEST</Button>
       </Overlay>
     </>
   );
