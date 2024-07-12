@@ -70,7 +70,6 @@ function Room() {
 
         <Button className="fixed inset-x-0 bottom-4 w-[70vw] h-24 mx-auto shadow-lg border-2 border-white rounded-lg" onClick={handleARButtonClick}>Exit AR</Button>
       </Overlay>
-      <Button onClick={handleARButtonClick}> TestButton </Button>
     </>
   );
 }
