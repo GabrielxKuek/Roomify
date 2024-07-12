@@ -14,6 +14,9 @@ function Room() {
   const overlayRef = useRef<HTMLDivElement>(null);
   const [sessionInit, setSessionInit] = useState<any>(null);
 
+  // i didnt use test. caused bugs, so i just add this
+  console.log(test);
+
   useEffect(() => {
     console.log(overlayRef.current);
     if (overlayRef.current) {
