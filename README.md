@@ -1,2 +1,2 @@
 # Roomify
-AWS + Supabase Submission
+README DO LATER 
