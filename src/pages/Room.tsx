@@ -54,11 +54,11 @@ function Room() {
       </Canvas>
 
       <Overlay ref={overlayRef} visible={isOverlayVisible}>
-        <div className="flex justify-center items-center space-x-4 px-0 mx-14">
+        <div className="flex justify-center items-center space-x-4 px-0"> 
 
-        <h1 className="bg-black w-10/12 h-24 flex items-center justify-center shadow-lg border-2 border-white rounded-lg">RoomID: {room_id}</h1>
+          <h1 className="bg-black w-max h-24 flex items-center justify-center shadow-lg border-2 border-white rounded-lg">RoomID: {room_id}</h1>
 
-        <img src="assets/informationIcon.png" alt="Info" className="w-12 h-12 rounded-full ring-2 ring-white" onClick={handleButtonClick}/>
+          <img src="assets/informationIcon.png" alt="Info" className="w-12 h-12 rounded-full ring-2 ring-white" onClick={handleButtonClick}/>
         </div>
 
         <div className="mt-20">
