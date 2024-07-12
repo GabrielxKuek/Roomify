@@ -26,7 +26,7 @@ function Room() {
   }, [overlayRef.current]);
 
   const handleARButtonClick = () => {
-    setOverlayVisible(true);
+    setOverlayVisible(prevState => !prevState);
   };
 
   const handleButtonClick = () => {
@@ -43,15 +43,28 @@ function Room() {
           onClick={handleARButtonClick}
         />
       )}
+
       <Canvas>
         <XR>
           <XRGallery color={color} />
         </XR>
       </Canvas>
+
       <Overlay ref={overlayRef} visible={isOverlayVisible}>
-        <h1>Welcome to the AR Experience! {room_id}</h1>
-        <p>Click anywhere to close this overlay. {test}</p>
-        <Button onClick={handleButtonClick}>TEST</Button>
+        <div className="flex justify-center items-center space-x-4 px-0 mx-14">
+
+        <h1 className="bg-black w-10/12 h-24 me-5 flex items-center justify-center shadow-lg border-2 border-white rounded-lg font-mono">RoomID: {room_id}</h1>
+
+        <img src="public/assets/informationIcon.png" alt="Info" className="w-12 h-12 rounded-full ring-2 ring-white" onClick={handleButtonClick}/>
+        </div>
+
+        <div className="mt-20">
+          <img src="public/assets/inventoryIcon.png" alt="Inventory" className="w-20 h-20 p-2 mb-4 border-2 border-white rounded-lg" onClick={handleButtonClick}/>
+          <img src="public/assets/search.svg" alt="Inventory" className="w-20 h-20 p-2 mb-4 border-2 border-white rounded-lg" onClick={handleButtonClick}/>
+          <img src="public/assets/inventoryIcon.png" alt="Inventory" className="w-20 h-20 p-2 mb-4 border-2 border-white rounded-lg" onClick={handleButtonClick}/>
+        </div>
+
+        <Button className="w-10/12 h-24 mt-96 shadow-lg border-2 border-white rounded-lg font-mono" onClick={handleARButtonClick}>Exit AR</Button>
       </Overlay>
     </>
   );
