@@ -4,11 +4,10 @@ import React from "react";
 interface OverlayProps {
   visible: boolean;
   children?: React.ReactNode;
-  onClick: () => void;
 }
 
 const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
-  ({ visible, children, onClick }, ref) => {
+  ({ visible, children }, ref) => {
     return (
       <div
         ref={ref}
@@ -27,7 +26,6 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
           textAlign: "center",
           padding: "20px",
         }}
-        onClick={onClick}
       >
         {children}
       </div>

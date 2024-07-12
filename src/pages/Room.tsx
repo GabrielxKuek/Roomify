@@ -27,10 +27,6 @@ function Room() {
     setOverlayVisible(true);
   };
 
-  const handleOverlayClick = () => {
-    setOverlayVisible(false);
-  };
-
   return (
     <>
       {sessionInit && (
@@ -41,15 +37,11 @@ function Room() {
         />
       )}
       <Canvas>
-        <XR onSessionEnd={() => setOverlayVisible(false)}>
+        <XR>
           <XRGallery />
         </XR>
       </Canvas>
-      <Overlay
-        ref={overlayRef}
-        visible={isOverlayVisible}
-        onClick={handleOverlayClick}
-      >
+      <Overlay ref={overlayRef} visible={isOverlayVisible}>
         <h1>Welcome to the AR Experience! {room_id}</h1>
         <p>Click anywhere to close this overlay.</p>
       </Overlay>
