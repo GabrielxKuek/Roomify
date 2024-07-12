@@ -84,8 +84,6 @@ function Room() {
         console.log("leave", key, leftPresences);
       });
 
-    channel.on;
-
     channel.subscribe(async (status) => {
       if (status !== "SUBSCRIBED") {
         return;
@@ -105,12 +103,6 @@ function Room() {
     };
   }, []);
 
-  useEffect(() => {
-    if (channel) {
-      console.log(channel);
-    }
-  }, [channel]);
-
   return (
     <>
       {sessionInit && (
@@ -124,7 +116,11 @@ function Room() {
       <Canvas>
         <XR>
           {referencePoint ? (
-            <XRGallery color={color} referencePoint={referencePoint} />
+            <XRGallery
+              color={color}
+              referencePoint={referencePoint}
+              channel={channel}
+            />
           ) : (
             <Calibration onCalibrate={setReferencePoint} />
           )}

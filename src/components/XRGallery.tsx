@@ -9,7 +9,11 @@ interface Model {
   id: number;
 }
 
-const XRGallery: React.FC<any> = ({ color = "white", referencePoint }) => {
+const XRGallery: React.FC<any> = ({
+  color = "white",
+  referencePoint,
+  channel,
+}) => {
   const reticleRef = useRef<THREE.Mesh>(null);
   const { isPresenting } = useXR();
   const { camera } = useThree();
@@ -40,8 +44,26 @@ const XRGallery: React.FC<any> = ({ color = "white", referencePoint }) => {
       const model = { position, id: Date.now() };
 
       setModels((prevModels) => [...prevModels, model]);
+      if (channel) {
+        channel.send({
+          type: "broadcast",
+          event: "place-model",
+          payload: {
+            hi: "h",
+            user: localStorage.getItem("name"),
+          },
+        });
+      }
     }
   };
+
+  useEffect(() => {
+    if (channel) {
+      channel.on("broadcast", { event: "place-model" }, (payload: any) => {
+        console.log(payload);
+      });
+    }
+  }, [channel]);
 
   return (
     <>
