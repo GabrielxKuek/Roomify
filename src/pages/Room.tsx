@@ -29,6 +29,7 @@ function Room() {
   }, [overlayRef.current]);
 
   const handleARButtonClick = () => {
+    // mr hong yu. it doesnt toggle, but im thinking its because the button that says "exit AR" is made by stuff thats in charge of ar
     setOverlayVisible(prevState => !prevState);
   };
 
@@ -62,7 +63,7 @@ function Room() {
         </div>
 
         <div className="mt-20">
-          <img src="assets/inventoryIcon.png" alt="Inventory" className="w-20 h-20 p-2 mb-4 border-2 border-white rounded-lg" onClick={handleButtonClick}/>
+          <img src="assets/inventoryIcon.png" alt="Inventory" className="w-20 h-20 p-2 mb-4 border-2 border-white rounded-lg" onClick={setOverlayVisible}/>
           <img src="assets/search.svg" alt="Search" className="w-20 h-20 p-2 mb-4 border-2 border-white rounded-lg" onClick={handleButtonClick}/>
           <img src="assets/profileIcon.png" alt="Profile" className="w-20 h-20 p-2 mb-4 border-2 border-white rounded-lg" onClick={handleButtonClick}/>
         </div>
