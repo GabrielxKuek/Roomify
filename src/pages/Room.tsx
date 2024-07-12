@@ -34,7 +34,6 @@ function Room() {
   const handleButtonClick = () => {
     toast("HELLO");
     setColor("blue");
-    setOverlayVisible(false);
     setTest("asdas");
   };
 
