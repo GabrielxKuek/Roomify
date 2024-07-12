@@ -1,4 +1,3 @@
-// Room.tsx
 import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ARButton, XR } from "@react-three/xr";
@@ -6,7 +5,6 @@ import Overlay from "@/components/Overlay";
 import { Canvas } from "@react-three/fiber";
 import XRGallery from "@/components/XRGallery";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
 
 function Room() {
   const [color, setColor] = useState<string>("pink");
@@ -32,7 +30,6 @@ function Room() {
   };
 
   const handleButtonClick = () => {
-    toast("HELLO");
     setColor("blue");
     setTest("asdas");
   };

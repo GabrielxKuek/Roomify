@@ -9,11 +9,7 @@ interface Model {
   id: number;
 }
 
-type XRGalleryProps = {
-  color?: string;
-};
-
-const XRGallery: React.FC<XRGalleryProps> = ({ color }) => {
+const XRGallery: React.FC<any> = ({ color = "white" }) => {
   const reticleRef = useRef<THREE.Mesh>(null);
   const { isPresenting } = useXR();
   const { camera } = useThree();
@@ -37,11 +33,11 @@ const XRGallery: React.FC<XRGalleryProps> = ({ color }) => {
     }
   });
 
-  const placeModel = (_: any) => {
+  const placeModel = () => {
     if (reticleRef.current) {
       const position = reticleRef.current.position.clone();
       const id = Date.now();
-      setModels([{ position, id }]);
+      setModels((prevModels) => [...prevModels, { position, id }]);
     }
   };
 
@@ -49,16 +45,14 @@ const XRGallery: React.FC<XRGalleryProps> = ({ color }) => {
     <>
       <OrbitControls />
       <ambientLight />
-      {models.map(({ position, id }) => {
-        return (
-          <Fragment key={id}>
-            <mesh position={position}>
-              <boxGeometry />
-              <meshStandardMaterial color={color} />
-            </mesh>
-          </Fragment>
-        );
-      })}
+      {models.map(({ position, id }) => (
+        <Fragment key={id}>
+          <mesh position={position}>
+            <boxGeometry />
+            <meshStandardMaterial color={color} />
+          </mesh>
+        </Fragment>
+      ))}
       <Interactive onSelect={placeModel}>
         <mesh ref={reticleRef} rotation-x={-Math.PI / 2}>
           <ringGeometry args={[0.1, 0.25, 32]} />
