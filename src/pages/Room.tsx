@@ -16,8 +16,8 @@ function Room() {
     console.log(overlayRef.current);
     if (overlayRef.current) {
       setSessionInit({
-        requiredFeatures: ["hit-test"],
-        optionalFeatures: ["dom-overlay"],
+        requiredFeatures: ["hit-test", "local-floor"],
+        optionalFeatures: ["dom-overlay", "bounded-floor"],
         domOverlay: { root: overlayRef.current },
       });
     }
@@ -41,7 +41,7 @@ function Room() {
         />
       )}
       <Canvas>
-        <XR>
+        <XR onSessionEnd={() => setOverlayVisible(false)}>
           <XRGallery />
         </XR>
       </Canvas>
