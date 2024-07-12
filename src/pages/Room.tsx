@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Button } from "@/components/ui/button";
 import { BsInfoLg } from "react-icons/bs";
 import { FaSearch, FaUser, FaPaintBrush } from "react-icons/fa";
+import { MdOutlineContentCopy } from "react-icons/md";
 
 const user_id = uuidv4();
 
@@ -115,12 +116,21 @@ function Room() {
       </Canvas>
 
       <Overlay ref={overlayRef} visible={isOverlayVisible}>
-        <div className="flex justify-center items-center space-x-4 px-0 relative">
-          <h1 className="bg-white dark:bg-[#080c15] h-12 flex items-center justify-center shadow-lg rounded-b-lg">
-            RoomID: {room_id}
-          </h1>
+        <div className="flex justify-between items-center space-x-4 px-3">
+          <div className="bg-white dark:bg-[#080c15] h-12 flex items-center justify-center shadow-lg rounded-b-lg px-3 gap-2">
+            <h1>RoomID: {room_id}</h1>
+            <Button
+              onClick={() =>
+                navigator.clipboard.writeText("Copy this text to clipboard")
+              }
+              variant={"ghost"}
+              size={"sm"}
+            >
+              <MdOutlineContentCopy />
+            </Button>
+          </div>
           <Button
-            className="rounded-full absolute right-2"
+            className="rounded-full"
             onClick={handleButtonClick}
             size={"sm"}
           >
@@ -128,15 +138,15 @@ function Room() {
           </Button>
         </div>
 
-        <div className="mt-12 flex flex-col w-fit bg-white dark:bg-[#080c15] rounded-r-lg">
+        <div className="button-container mt-12 flex flex-col w-fit bg-white dark:bg-[#080c15] rounded-r-lg">
           <Button onClick={handleButtonClick} variant={"ghost"}>
-            <FaPaintBrush />
+            <FaPaintBrush size={20} />
           </Button>
           <Button onClick={handleButtonClick} variant={"ghost"}>
-            <FaSearch />
+            <FaSearch size={20} />
           </Button>
           <Button onClick={handleButtonClick} variant={"ghost"}>
-            <FaUser />
+            <FaUser size={20} />
           </Button>
         </div>
       </Overlay>

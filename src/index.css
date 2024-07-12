@@ -6,3 +6,12 @@
   min-height: 100vh;
   min-height: 100dvh;
 }
+
+.button-container button:not(:last-child) {
+  border-bottom: 2px solid #ccc; /* Adjust the color as needed */
+}
+
+.button-container button {
+  border-radius: 0;
+  padding: 25px 15px;
+}
