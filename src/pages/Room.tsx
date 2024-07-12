@@ -54,10 +54,10 @@ function Room() {
       </Canvas>
 
       <Overlay ref={overlayRef} visible={isOverlayVisible}>
-        <div className="flex justify-center items-center space-x-4 px-0"> 
-
-          <h1 className="bg-black w-max h-24 flex items-center justify-center shadow-lg border-2 border-white rounded-lg">RoomID: {room_id}</h1>
-
+        <div className="flex justify-center items-center space-x-4 w-[70vw] px-0 mx-auto"> 
+          <h1 className="bg-black flex-grow h-24 flex items-center justify-center shadow-lg border-2 border-white rounded-lg">
+            RoomID: {room_id}
+          </h1>
           <img src="assets/informationIcon.png" alt="Info" className="w-12 h-12 rounded-full ring-2 ring-white" onClick={handleButtonClick}/>
         </div>
 
@@ -67,7 +67,7 @@ function Room() {
           <img src="assets/profileIcon.png" alt="Profile" className="w-20 h-20 p-2 mb-4 border-2 border-white rounded-lg" onClick={handleButtonClick}/>
         </div>
 
-        <Button className="w-10/12 h-24 mt-96 shadow-lg border-2 border-white rounded-lg" onClick={handleARButtonClick}>Exit AR</Button>
+        <Button className="w-[70vw] h-24 mt-auto shadow-lg border-2 border-white rounded-lg" onClick={handleARButtonClick}>Exit AR</Button>
       </Overlay>
     </>
   );
