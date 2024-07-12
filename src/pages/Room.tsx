@@ -4,6 +4,7 @@ import { ARButton, XR } from "@react-three/xr";
 import Overlay from "@/components/Overlay";
 import { Canvas } from "@react-three/fiber";
 import XRGallery from "@/components/XRGallery";
+import Calibration from "@/components/Calibration";
 import supabase from "@/lib/supabase";
 import { RealtimeChannel } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
@@ -12,6 +13,7 @@ import { BsInfoLg } from "react-icons/bs";
 import { FaSearch, FaUser, FaPaintBrush } from "react-icons/fa";
 import { MdOutlineContentCopy } from "react-icons/md";
 import { toast } from "sonner";
+import * as THREE from "three";
 
 const user_id = uuidv4();
 
@@ -23,6 +25,9 @@ function Room() {
   const [isOverlayVisible, setOverlayVisible] = useState<boolean>(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const [sessionInit, setSessionInit] = useState<any>(null);
+  const [referencePoint, setReferencePoint] = useState<THREE.Vector3 | null>(
+    null
+  );
 
   useEffect(() => {
     console.log(overlayRef.current);
@@ -36,7 +41,6 @@ function Room() {
   }, [overlayRef.current]);
 
   const handleARButtonClick = () => {
-    // mr hong yu. it doesnt toggle, but im thinking its because the button that says "exit AR" is made by stuff thats in charge of ar
     setOverlayVisible((prevState) => !prevState);
   };
 
@@ -119,7 +123,11 @@ function Room() {
 
       <Canvas>
         <XR>
-          <XRGallery color={color} />
+          {referencePoint ? (
+            <XRGallery color={color} referencePoint={referencePoint} />
+          ) : (
+            <Calibration onCalibrate={setReferencePoint} />
+          )}
         </XR>
       </Canvas>
 

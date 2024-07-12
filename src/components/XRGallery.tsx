@@ -9,7 +9,7 @@ interface Model {
   id: number;
 }
 
-const XRGallery: React.FC<any> = ({ color = "white" }) => {
+const XRGallery: React.FC<any> = ({ color = "white", referencePoint }) => {
   const reticleRef = useRef<THREE.Mesh>(null);
   const { isPresenting } = useXR();
   const { camera } = useThree();
@@ -35,9 +35,11 @@ const XRGallery: React.FC<any> = ({ color = "white" }) => {
 
   const placeModel = () => {
     if (reticleRef.current) {
-      const position = reticleRef.current.position.clone();
-      const id = Date.now();
-      setModels((prevModels) => [...prevModels, { position, id }]);
+      const position = reticleRef.current.position.clone().sub(referencePoint);
+
+      const model = { position, id: Date.now() };
+
+      setModels((prevModels) => [...prevModels, model]);
     }
   };
 
@@ -47,7 +49,7 @@ const XRGallery: React.FC<any> = ({ color = "white" }) => {
       <ambientLight />
       {models.map(({ position, id }) => (
         <Fragment key={id}>
-          <mesh position={position}>
+          <mesh position={position.add(referencePoint)}>
             <boxGeometry />
             <meshStandardMaterial color={color} />
           </mesh>
