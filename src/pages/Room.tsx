@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { BsInfoLg } from "react-icons/bs";
 import { FaSearch, FaUser, FaPaintBrush } from "react-icons/fa";
 import { MdOutlineContentCopy } from "react-icons/md";
+import { toast } from "sonner";
 
 const user_id = uuidv4();
 
@@ -42,6 +43,13 @@ function Room() {
   const handleButtonClick = () => {
     setColor("blue");
   };
+
+  function copyText() {
+    toast.success("Room ID copied!");
+    navigator.clipboard.writeText(
+      `${import.meta.env.VITE_CLIENT_URL}/?roomID=${room_id}`
+    );
+  }
 
   useEffect(() => {
     if (!room_id) {
@@ -120,9 +128,9 @@ function Room() {
           <div className="bg-white dark:bg-[#080c15] h-12 flex items-center justify-center shadow-lg rounded-b-lg px-3 gap-2">
             <h1>RoomID: {room_id}</h1>
             <Button
-              onClick={() =>
-                navigator.clipboard.writeText("Copy this text to clipboard")
-              }
+              onClick={() => {
+                copyText();
+              }}
               variant={"ghost"}
               size={"sm"}
             >

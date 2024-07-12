@@ -18,6 +18,7 @@ function Home() {
 
   useEffect(() => {
     if (query.get("roomID")) {
+      setRoomID(query.get("roomID") || "");
     }
   }, [query]);
 
@@ -88,6 +89,7 @@ function Home() {
           type="text"
           id="name"
           placeholder="Name"
+          value={name}
           onInput={(e) => setName((e.target as HTMLInputElement).value)}
         />
       </div>
@@ -96,6 +98,7 @@ function Home() {
         <Input
           type="text"
           id="roomID"
+          value={roomID}
           placeholder="Room ID"
           onInput={(e) => setRoomID((e.target as HTMLInputElement).value)}
         />
