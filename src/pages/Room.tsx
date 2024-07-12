@@ -7,6 +7,9 @@ import XRGallery from "@/components/XRGallery";
 import supabase from "@/lib/supabase";
 import { RealtimeChannel } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
+import { Button } from "@/components/ui/button";
+import { BsInfoLg } from "react-icons/bs";
+import { FaSearch, FaUser, FaPaintBrush } from "react-icons/fa";
 
 const user_id = uuidv4();
 
@@ -112,37 +115,29 @@ function Room() {
       </Canvas>
 
       <Overlay ref={overlayRef} visible={isOverlayVisible}>
-        <div className="flex justify-center items-center space-x-4 px-0 ">
-          <h1 className="bg-black flex-grow h-12 flex items-center justify-center shadow-lg rounded-lg">
+        <div className="flex justify-center items-center space-x-4 px-0 relative">
+          <h1 className="bg-white dark:bg-[#080c15] h-12 flex items-center justify-center shadow-lg rounded-b-lg">
             RoomID: {room_id}
           </h1>
-          <img
-            src="assets/informationIcon.png"
-            alt="Info"
-            className="w-12 h-12 rounded-full ring-2 ring-white"
+          <Button
+            className="rounded-full absolute right-2"
             onClick={handleButtonClick}
-          />
+            size={"sm"}
+          >
+            <BsInfoLg />
+          </Button>
         </div>
 
-        <div className="mt-20">
-          <img
-            src="assets/inventoryIcon.png"
-            alt="Inventory"
-            className="w-20 h-20 p-2 mb-4 rounded-lg"
-            onClick={handleButtonClick}
-          />
-          <img
-            src="assets/search.svg"
-            alt="Search"
-            className="w-20 h-20 p-2 mb-4 rounded-lg"
-            onClick={handleButtonClick}
-          />
-          <img
-            src="assets/profileIcon.png"
-            alt="Profile"
-            className="w-20 h-20 p-2 mb-4 rounded-lg"
-            onClick={handleButtonClick}
-          />
+        <div className="mt-12 flex flex-col w-fit bg-white dark:bg-[#080c15] rounded-r-lg">
+          <Button onClick={handleButtonClick} variant={"ghost"}>
+            <FaPaintBrush />
+          </Button>
+          <Button onClick={handleButtonClick} variant={"ghost"}>
+            <FaSearch />
+          </Button>
+          <Button onClick={handleButtonClick} variant={"ghost"}>
+            <FaUser />
+          </Button>
         </div>
       </Overlay>
     </>
