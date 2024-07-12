@@ -18,7 +18,7 @@ function Room() {
     console.log(overlayRef.current);
     if (overlayRef.current) {
       setSessionInit({
-        requiredFeatures: ["hit-test", "local-floor"],
+        requiredFeatures: ["hit-test", "local"],
         optionalFeatures: ["dom-overlay", "bounded-floor"],
         domOverlay: { root: overlayRef.current },
       });
