@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 function Room() {
+  const [color, setColor] = useState<string>("pink");
   const { room_id } = useParams();
   const [isOverlayVisible, setOverlayVisible] = useState<boolean>(false);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -40,13 +41,20 @@ function Room() {
       )}
       <Canvas>
         <XR>
-          <XRGallery />
+          <XRGallery color={color} />
         </XR>
       </Canvas>
       <Overlay ref={overlayRef} visible={isOverlayVisible}>
         <h1>Welcome to the AR Experience! {room_id}</h1>
         <p>Click anywhere to close this overlay.</p>
-        <Button onClick={() => toast("HELLO")}>TEST</Button>
+        <Button
+          onClick={() => {
+            toast("HELLO");
+            setColor("blue");
+          }}
+        >
+          TEST
+        </Button>
       </Overlay>
     </>
   );

@@ -16,7 +16,7 @@ function Home() {
       .select()
       .eq("id", roomID);
     if (error) {
-      toast(error.message);
+      toast.error(error.message);
       return false;
     }
     return data.length > 0;
@@ -25,11 +25,11 @@ function Home() {
   async function joinRoom() {
     let room = roomID?.trim();
     if (!room) {
-      return toast("Invalid Room ID");
+      return toast.error("Invalid Room ID");
     }
     let exist = await roomExist(room);
     if (!exist) {
-      return toast("Room Do Not Exist");
+      return toast.error("Room Do Not Exist");
     }
     return navigate(`/${room}`);
   }
@@ -37,11 +37,11 @@ function Home() {
   async function createRoom() {
     let room = roomID?.trim();
     if (!room) {
-      return toast("Invalid Room ID");
+      return toast.error("Invalid Room ID");
     }
     let exist = await roomExist(room);
     if (exist) {
-      return toast("Room Already Exist");
+      return toast.error("Room Already Exist");
     }
     return navigate(`/${room}`);
   }

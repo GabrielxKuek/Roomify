@@ -1,4 +1,3 @@
-// XRGallery.tsx
 import React, { Fragment, useState, useRef, useEffect } from "react";
 import { OrbitControls } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
@@ -10,7 +9,11 @@ interface Model {
   id: number;
 }
 
-const XRGallery: React.FC = () => {
+type XRGalleryProps = {
+  color?: string;
+};
+
+const XRGallery: React.FC<XRGalleryProps> = ({ color }) => {
   const reticleRef = useRef<THREE.Mesh>(null);
   const { isPresenting } = useXR();
   const { camera } = useThree();
@@ -51,7 +54,7 @@ const XRGallery: React.FC = () => {
           <Fragment key={id}>
             <mesh position={position}>
               <boxGeometry />
-              <meshStandardMaterial color={"pink"} />
+              <meshStandardMaterial color={color} />
             </mesh>
           </Fragment>
         );
