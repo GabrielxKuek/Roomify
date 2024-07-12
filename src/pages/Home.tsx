@@ -1,14 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "sonner";
 import supabase from "@/lib/supabase";
 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 function Home() {
+  const query = useQuery();
   const navigate = useNavigate();
+  const [name, setName] = useState<string>();
   const [roomID, setRoomID] = useState<string>();
+
+  useEffect(() => {
+    if (query.get("roomID")) {
+    }
+  }, [query]);
+
+  async function validName() {
+    if (!name?.trim()) {
+      toast.error("Missing Name");
+      return false;
+    }
+    sessionStorage.setItem("name", name.trim());
+    return true;
+  }
 
   async function roomExist(roomID: string) {
     const { data, error } = await supabase
@@ -23,6 +43,10 @@ function Home() {
   }
 
   async function joinRoom() {
+    let isValid = validName();
+    if (!isValid) {
+      return;
+    }
     let room = roomID?.trim();
     if (!room) {
       return toast.error("Invalid Room ID");
@@ -35,6 +59,10 @@ function Home() {
   }
 
   async function createRoom() {
+    let isValid = validName();
+    if (!isValid) {
+      return;
+    }
     let room = roomID?.trim();
     if (!room) {
       return toast.error("Invalid Room ID");
@@ -43,12 +71,26 @@ function Home() {
     if (exist) {
       return toast.error("Room Already Exist");
     }
+    const { error } = await supabase.from("roomify_room").insert({ id: room });
+    if (error) {
+      toast.error(error.message);
+      return false;
+    }
     return navigate(`/${room}`);
   }
 
   return (
     <div className="flex justify-center items-center h-full flex-col mx-auto max-w-xs p-5 gap-5">
       <h1 className="text-2xl font-bold">Roomify</h1>
+      <div className="grid w-full max-w-sm items-center gap-2">
+        <Label htmlFor="name">Name</Label>
+        <Input
+          type="text"
+          id="name"
+          placeholder="Name"
+          onInput={(e) => setName((e.target as HTMLInputElement).value)}
+        />
+      </div>
       <div className="grid w-full max-w-sm items-center gap-2">
         <Label htmlFor="roomID">Room ID</Label>
         <Input

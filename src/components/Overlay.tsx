@@ -24,7 +24,6 @@ const Overlay = React.forwardRef<HTMLDivElement, OverlayProps>(
           justifyContent: "center",
           alignItems: "center",
           textAlign: "center",
-          padding: "20px",
         }}
       >
         {children}
