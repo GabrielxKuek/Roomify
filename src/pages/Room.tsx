@@ -5,6 +5,8 @@ import { ARButton, XR } from "@react-three/xr";
 import Overlay from "@/components/Overlay";
 import { Canvas } from "@react-three/fiber";
 import XRGallery from "@/components/XRGallery";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 function Room() {
   const { room_id } = useParams();
@@ -44,6 +46,7 @@ function Room() {
       <Overlay ref={overlayRef} visible={isOverlayVisible}>
         <h1>Welcome to the AR Experience! {room_id}</h1>
         <p>Click anywhere to close this overlay.</p>
+        <Button onClick={() => toast("HELLO")}>TEST</Button>
       </Overlay>
     </>
   );
