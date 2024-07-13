@@ -10,7 +10,7 @@ import { RealtimeChannel, RealtimePresenceState } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
 import { Button } from "@/components/ui/button";
 import { BsInfoLg } from "react-icons/bs";
-import { FaSearch, FaUser, FaPaintBrush } from "react-icons/fa";
+import { FaUser, FaPaintBrush } from "react-icons/fa";
 import { MdOutlineContentCopy } from "react-icons/md";
 import { toast } from "sonner";
 import * as THREE from "three";
@@ -29,6 +29,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { LuUpload } from "react-icons/lu";
 
 type UserType = {
   user_id: string;
@@ -205,15 +206,55 @@ function Room() {
         </div>
 
         <div className="button-container mt-12 flex flex-col w-fit bg-white dark:bg-[#080c15] rounded-r-lg">
-          <Button onClick={handleButtonClick} variant={"ghost"}>
-            <FaPaintBrush size={20} />
-          </Button>
-          <Button onClick={handleButtonClick} variant={"ghost"}>
-            <FaSearch size={20} />
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant={"ghost"}>
+                <FaPaintBrush size={20} />
+              </Button>
+            </DialogTrigger>
+            <DialogContent
+              className="sm:max-w-[425px]"
+              container={overlayRef.current as Element}
+            >
+              <DialogHeader>
+                <DialogTitle>Edit profile</DialogTitle>
+                <DialogDescription>
+                  Make changes to your profile here. Click save when you're
+                  done.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <Button type="submit">Save changes</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant={"ghost"}>
+                <LuUpload size={20} />
+              </Button>
+            </DialogTrigger>
+            <DialogContent
+              className="sm:max-w-[425px]"
+              container={overlayRef.current as Element}
+            >
+              <DialogHeader>
+                <DialogTitle>Edit profile</DialogTitle>
+                <DialogDescription>
+                  Make changes to your profile here. Click save when you're
+                  done.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <Button type="submit">Save changes</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+
           <Popover>
             <PopoverTrigger asChild>
-              <Button onClick={handleButtonClick} variant={"ghost"}>
+              <Button variant={"ghost"}>
                 <FaUser size={20} />
               </Button>
             </PopoverTrigger>
@@ -234,25 +275,7 @@ function Room() {
             </PopoverContent>
           </Popover>
         </div>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline">Edit Profile</Button>
-          </DialogTrigger>
-          <DialogContent
-            className="sm:max-w-[425px]"
-            container={overlayRef.current as Element}
-          >
-            <DialogHeader>
-              <DialogTitle>Edit profile</DialogTitle>
-              <DialogDescription>
-                Make changes to your profile here. Click save when you're done.
-              </DialogDescription>
-            </DialogHeader>
-            <DialogFooter>
-              <Button type="submit">Save changes</Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+
         <Toaster richColors />
       </Overlay>
     </>
