@@ -99,7 +99,10 @@ const XRGallery: React.FC<any> = ({
         console.log(payload);
         setModels((prevModels) => [
           ...prevModels,
-          { position: convertToVector3(payload.position), id: Date.now() },
+          {
+            position: convertToVector3(payload.payload.position),
+            id: Date.now(),
+          },
         ]);
       });
     }
