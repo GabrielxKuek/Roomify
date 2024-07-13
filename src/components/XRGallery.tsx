@@ -85,10 +85,7 @@ const XRGallery: React.FC<any> = ({
       <Interactive onSelect={placeModel}>
         <FurnitureModel
           objUrl={
-            "https://replicate.delivery/yhqm/y54obHqHthbEKJTE6AuDKJ5Q1rj9BTlF0KKiqRsea61xPCkJA/tmppch4txx5.obj"
-          }
-          mtlUrl={
-            "https://replicate.delivery/yhqm/ADAqTIQXrIJWMZiqDZjIbf7mqyc2ytIN7j917nFbu2kxPCkJA/tmppch4txx5.mtl"
+            "https://hlzsmadaanjcpyjghntc.supabase.co/storage/v1/object/public/roomify/tmpzego89o7.obj"
           }
           ghost={0.1}
         />

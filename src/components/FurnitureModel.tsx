@@ -5,7 +5,7 @@ import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
 import * as THREE from "three";
 
 interface FurnitureModelProps extends React.ComponentProps<"mesh"> {
-  mtlUrl: string;
+  mtlUrl?: string;
   objUrl: string;
   ghost?: number;
 }
@@ -16,10 +16,15 @@ const FurnitureModel: React.FC<FurnitureModelProps> = ({
   ghost = 0,
   ...props
 }) => {
-  const materials = useLoader(MTLLoader, mtlUrl);
+  let materials: any;
+  if (mtlUrl) {
+    materials = useLoader(MTLLoader, mtlUrl);
+  }
   const obj = useLoader(OBJLoader, objUrl, (loader) => {
-    materials.preload();
-    loader.setMaterials(materials);
+    if (materials) {
+      materials.preload();
+      loader.setMaterials(materials);
+    }
   });
 
   if (ghost) {

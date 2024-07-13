@@ -184,6 +184,11 @@ function Room() {
           ) : (
             <Calibration onCalibrate={setReferencePoint} />
           )}
+          {/* <XRGallery
+            color={color}
+            referencePoint={referencePoint}
+            channel={channel}
+          /> */}
         </XR>
       </Canvas>
 
