@@ -97,6 +97,10 @@ const XRGallery: React.FC<any> = ({
     if (channel) {
       channel.on("broadcast", { event: "place-model" }, (payload: any) => {
         console.log(payload);
+        setModels((prevModels) => [
+          ...prevModels,
+          { position: convertToVector3(payload.position), id: Date.now() },
+        ]);
       });
     }
   }, [channel]);
