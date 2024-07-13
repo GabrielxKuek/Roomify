@@ -19,6 +19,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Toaster } from "@/components/ui/sonner";
 
 type UserType = {
   user_id: string;
