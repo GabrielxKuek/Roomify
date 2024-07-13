@@ -68,6 +68,10 @@ const XRGallery: React.FC<any> = ({
     }
   };
 
+  function convertToVector3(position: { x: number; y: number; z: number }) {
+    return new THREE.Vector3(position.x, position.y, position.z);
+  }
+
   useEffect(() => {
     async function getModels() {
       const { data, error } = await supabase
@@ -81,7 +85,7 @@ const XRGallery: React.FC<any> = ({
         for (let model of data) {
           setModels((prevModels) => [
             ...prevModels,
-            { position: model.position, id: Date.now() },
+            { position: convertToVector3(model.position), id: Date.now() },
           ]);
         }
       }
