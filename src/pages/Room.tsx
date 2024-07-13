@@ -47,7 +47,7 @@ function Room() {
       setSessionInit({
         requiredFeatures: ["hit-test", "local-floor"],
         optionalFeatures: ["dom-overlay", "bounded-floor"],
-        domOverlay: { root: overlayRef.current },
+        domOverlay: { root: document.body },
       });
     }
   }, [overlayRef.current]);
@@ -159,6 +159,7 @@ function Room() {
             className="rounded-full"
             onClick={handleButtonClick}
             size={"sm"}
+            variant={"secondary"}
           >
             <BsInfoLg />
           </Button>
