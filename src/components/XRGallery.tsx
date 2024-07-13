@@ -11,7 +11,6 @@ interface Model {
 }
 
 const XRGallery: React.FC<any> = ({
-  color = "white",
   referencePoint,
   channel,
 }) => {
@@ -72,26 +71,17 @@ const XRGallery: React.FC<any> = ({
       <ambientLight />
       {models.map(({ position, id }) => (
         <Fragment key={id}>
-          <mesh
+          <FurnitureModel
             position={position.add(referencePoint)}
-            scale={[0.3, 0.3, 0.3]}
-            castShadow={true}
-          >
-            <boxGeometry />
-            <meshStandardMaterial color={color} />
-          </mesh>
+            ref={reticleRef}
+            objUrl={
+              "https://hlzsmadaanjcpyjghntc.supabase.co/storage/v1/object/public/roomify/tmpzego89o7.obj"
+            }
+            scale={[0.5, 0.5, 0.5]}
+          />
         </Fragment>
       ))}
       <Interactive onSelect={placeModel}>
-        <FurnitureModel
-          ref={reticleRef}
-          objUrl={
-            "https://hlzsmadaanjcpyjghntc.supabase.co/storage/v1/object/public/roomify/tmpzego89o7.obj"
-          }
-          ghost={0.4}
-          rotation-x={-Math.PI / 2}
-          scale={[0.5, 0.5, 0.5]}
-        />
         <mesh ref={reticleRef} rotation-x={-Math.PI / 2}>
           <ringGeometry args={[0.1, 0.25, 32]} />
           <meshStandardMaterial color={"white"} />
