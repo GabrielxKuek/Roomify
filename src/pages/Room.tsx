@@ -195,6 +195,7 @@ function Room() {
             </PopoverContent>
           </Popover>
         </div>
+        <Toaster richColors />
       </Overlay>
     </>
   );
