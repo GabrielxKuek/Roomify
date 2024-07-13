@@ -88,12 +88,12 @@ const XRGallery: React.FC<any> = ({
           objUrl={
             "https://hlzsmadaanjcpyjghntc.supabase.co/storage/v1/object/public/roomify/tmpzego89o7.obj"
           }
-          ghost={0.1}
+          ghost={0.4}
         />
-        <mesh ref={reticleRef} rotation-x={-Math.PI / 2}>
+        {/* <mesh ref={reticleRef} rotation-x={-Math.PI / 2}>
           <ringGeometry args={[0.1, 0.25, 32]} />
           <meshStandardMaterial color={"white"} />
-        </mesh>
+        </mesh> */}
       </Interactive>
     </>
   );
