@@ -6,7 +6,7 @@ import { Canvas } from "@react-three/fiber";
 import XRGallery from "@/components/XRGallery";
 import Calibration from "@/components/Calibration";
 import supabase from "@/lib/supabase";
-import { RealtimeChannel, RealtimePresenceState } from "@supabase/supabase-js";
+import { RealtimeChannel } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
 import { Button } from "@/components/ui/button";
 import { BsInfoLg } from "react-icons/bs";
@@ -41,7 +41,7 @@ const user_id = uuidv4();
 
 function Room() {
   const navigate = useNavigate();
-  const [users, setUsers] = useState<RealtimePresenceState>({});
+  const [users, setUsers] = useState<UserType[]>([]);
   const [channel, setChannel] = useState<RealtimeChannel>();
   const [color, setColor] = useState<string>("pink");
   const { room_id } = useParams();
@@ -112,20 +112,30 @@ function Room() {
       .on("presence", { event: "sync" }, async () => {
         const newState = channel.presenceState();
         console.log("sync", newState);
-        const plainObject: any = {};
-
-        for (const key in newState) {
-          if (newState.hasOwnProperty(key)) {
-            plainObject[key] = newState[key];
-          }
+        let user: any[] = [];
+        for (let userVal of Object.values(newState)) {
+          user.push(userVal);
         }
-        setUsers(plainObject);
+        setUsers([...user]);
       })
       .on("presence", { event: "join" }, async ({ key, newPresences }) => {
         console.log("join", key, newPresences);
+        setUsers((prev) => {
+          let newState = [...prev, newPresences[0] as UserType];
+          return [...newState];
+        });
       })
       .on("presence", { event: "leave" }, async ({ key, leftPresences }) => {
         console.log("leave", key, leftPresences);
+        setUsers((prev) => {
+          let newState: UserType[] = [];
+          for (let i of prev) {
+            if (i.user_id != leftPresences[0].user_id) {
+              newState.push(i);
+            }
+          }
+          return [...newState];
+        });
       });
 
     channel.subscribe(async (status) => {
@@ -274,10 +284,10 @@ function Room() {
             >
               <h1 className="underline underline-offset-1">Users</h1>
               <ul className="list-disc">
-                {Object.entries(users).map((e) => {
+                {users.map((e) => {
                   return (
-                    <li className="" key={e[0]}>
-                      {(e[1][0] as UserType).username}
+                    <li className="" key={e.user_id}>
+                      {e.username}
                     </li>
                   );
                 })}
