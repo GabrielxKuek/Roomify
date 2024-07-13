@@ -209,7 +209,10 @@ function Room() {
           <DialogTrigger asChild>
             <Button variant="outline">Edit Profile</Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
+          <DialogContent
+            className="sm:max-w-[425px]"
+            container={overlayRef.current as Element}
+          >
             <DialogHeader>
               <DialogTitle>Edit profile</DialogTitle>
               <DialogDescription>
