@@ -6,7 +6,7 @@ import { Canvas } from "@react-three/fiber";
 import XRGallery from "@/components/XRGallery";
 import Calibration from "@/components/Calibration";
 import supabase from "@/lib/supabase";
-import { RealtimeChannel } from "@supabase/supabase-js";
+import { RealtimeChannel, RealtimePresenceState } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
 import { Button } from "@/components/ui/button";
 import { BsInfoLg } from "react-icons/bs";
@@ -14,11 +14,23 @@ import { FaSearch, FaUser, FaPaintBrush } from "react-icons/fa";
 import { MdOutlineContentCopy } from "react-icons/md";
 import { toast } from "sonner";
 import * as THREE from "three";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
+type UserType = {
+  user_id: string;
+  username: string;
+  presence_ref: string;
+};
 
 const user_id = uuidv4();
 
 function Room() {
   const navigate = useNavigate();
+  const [users, setUsers] = useState<RealtimePresenceState>({});
   const [channel, setChannel] = useState<RealtimeChannel>();
   const [color, setColor] = useState<string>("pink");
   const { room_id } = useParams();
@@ -60,6 +72,7 @@ function Room() {
       navigate("/");
     }
     if (!sessionStorage.getItem("name")) {
+      navigate("/");
     }
     let channel = supabase.channel(`${room_id}_roomify`, {
       config: {
@@ -76,6 +89,7 @@ function Room() {
       .on("presence", { event: "sync" }, async () => {
         const newState = channel.presenceState();
         console.log("sync", newState);
+        setUsers(newState);
       })
       .on("presence", { event: "join" }, async ({ key, newPresences }) => {
         console.log("join", key, newPresences);
@@ -157,9 +171,25 @@ function Room() {
           <Button onClick={handleButtonClick} variant={"ghost"}>
             <FaSearch size={20} />
           </Button>
-          <Button onClick={handleButtonClick} variant={"ghost"}>
-            <FaUser size={20} />
-          </Button>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button onClick={handleButtonClick} variant={"ghost"}>
+                <FaUser size={20} />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-36 flex flex-col justify-center items-center">
+              <h1 className="underline underline-offset-1">Users</h1>
+              <ul className="list-disc">
+                {Object.entries(users).map((e) => {
+                  return (
+                    <li className="" key={e[0]}>
+                      {(e[1][0] as UserType).username}
+                    </li>
+                  );
+                })}
+              </ul>
+            </PopoverContent>
+          </Popover>
         </div>
       </Overlay>
     </>
