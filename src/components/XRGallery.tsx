@@ -84,6 +84,7 @@ const XRGallery: React.FC<any> = ({
       ))}
       <Interactive onSelect={placeModel}>
         <FurnitureModel
+          ref={reticleRef}
           objUrl={
             "https://hlzsmadaanjcpyjghntc.supabase.co/storage/v1/object/public/roomify/tmpzego89o7.obj"
           }
