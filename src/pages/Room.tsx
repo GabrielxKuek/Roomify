@@ -47,7 +47,7 @@ function Room() {
       setSessionInit({
         requiredFeatures: ["hit-test", "local-floor"],
         optionalFeatures: ["dom-overlay", "bounded-floor"],
-        domOverlay: { root: document.body },
+        domOverlay: { root: overlayRef.current },
       });
     }
   }, [overlayRef.current]);
@@ -178,7 +178,10 @@ function Room() {
                 <FaUser size={20} />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-36 flex flex-col justify-center items-center">
+            <PopoverContent
+              className="w-36 flex flex-col justify-center items-center"
+              container={overlayRef.current as Element}
+            >
               <h1 className="underline underline-offset-1">Users</h1>
               <ul className="list-disc">
                 {Object.entries(users).map((e) => {
