@@ -89,6 +89,8 @@ const XRGallery: React.FC<any> = ({
             "https://hlzsmadaanjcpyjghntc.supabase.co/storage/v1/object/public/roomify/tmpzego89o7.obj"
           }
           ghost={0.4}
+          rotation-x={-Math.PI / 2}
+          scale={[.5, .5, .5]}
         />
         {/* <mesh ref={reticleRef} rotation-x={-Math.PI / 2}>
           <ringGeometry args={[0.1, 0.25, 32]} />
