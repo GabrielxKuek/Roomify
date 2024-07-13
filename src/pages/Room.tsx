@@ -114,7 +114,7 @@ function Room() {
         console.log("sync", newState);
         let user: any[] = [];
         for (let userVal of Object.values(newState)) {
-          user.push(userVal);
+          user.push(userVal[0]);
         }
         setUsers([...user]);
       })
