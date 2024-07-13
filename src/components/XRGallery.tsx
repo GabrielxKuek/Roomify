@@ -3,6 +3,7 @@ import { OrbitControls } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { Interactive, useHitTest, useXR } from "@react-three/xr";
 import * as THREE from "three";
+import FurnitureModel from "./FurnitureModel";
 
 interface Model {
   position: THREE.Vector3;
@@ -50,7 +51,7 @@ const XRGallery: React.FC<any> = ({
           event: "place-model",
           payload: {
             hi: "h",
-            user: localStorage.getItem("name"),
+            user: sessionStorage.getItem("name"),
           },
         });
       }
@@ -82,6 +83,15 @@ const XRGallery: React.FC<any> = ({
         </Fragment>
       ))}
       <Interactive onSelect={placeModel}>
+        <FurnitureModel
+          objUrl={
+            "https://replicate.delivery/yhqm/y54obHqHthbEKJTE6AuDKJ5Q1rj9BTlF0KKiqRsea61xPCkJA/tmppch4txx5.obj"
+          }
+          mtlUrl={
+            "https://replicate.delivery/yhqm/ADAqTIQXrIJWMZiqDZjIbf7mqyc2ytIN7j917nFbu2kxPCkJA/tmppch4txx5.mtl"
+          }
+          ghost={0.1}
+        />
         <mesh ref={reticleRef} rotation-x={-Math.PI / 2}>
           <ringGeometry args={[0.1, 0.25, 32]} />
           <meshStandardMaterial color={"white"} />

@@ -283,11 +283,11 @@ function Room() {
               container={overlayRef.current as Element}
             >
               <h1 className="underline underline-offset-1">Users</h1>
-              <ul className="list-disc">
+              <ul className="list-disc text-left">
                 {users.map((e) => {
                   return (
                     <li className="" key={e.user_id}>
-                      {e.username}
+                      {e.username} {e.user_id == user_id ? "(You)" : ""}
                     </li>
                   );
                 })}
