@@ -204,6 +204,7 @@ function Room() {
             return <span key={i}>{e}</span>;
           })}
         </div>
+        <Button onClick={handleButtonClick} className="hidden">as</Button>
 
         <div className="button-container mt-12 flex flex-col w-fit bg-white dark:bg-[#080c15] rounded-r-lg">
           <Dialog>
