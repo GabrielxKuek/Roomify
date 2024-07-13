@@ -4,6 +4,8 @@ import { useThree } from "@react-three/fiber";
 import { Interactive, useHitTest, useXR } from "@react-three/xr";
 import * as THREE from "three";
 import FurnitureModel from "./FurnitureModel";
+import supabase from "@/lib/supabase";
+import { toast } from "sonner";
 
 interface Model {
   position: THREE.Vector3;
@@ -13,6 +15,8 @@ interface Model {
 const XRGallery: React.FC<any> = ({
   referencePoint,
   channel,
+  objUrl,
+  room,
 }) => {
   const reticleRef = useRef<THREE.Mesh>(null);
   const { isPresenting } = useXR();
@@ -37,7 +41,7 @@ const XRGallery: React.FC<any> = ({
     }
   });
 
-  const placeModel = () => {
+  const placeModel = async () => {
     if (reticleRef.current) {
       const position = reticleRef.current.position.clone().sub(referencePoint);
 
@@ -49,13 +53,41 @@ const XRGallery: React.FC<any> = ({
           type: "broadcast",
           event: "place-model",
           payload: {
-            hi: "h",
+            objUrl: objUrl,
+            position: position,
             user: sessionStorage.getItem("name"),
           },
         });
+        const { error } = await supabase
+          .from("roomify_models_room")
+          .insert({ room: room, model: objUrl, position: position });
+        if (error) {
+          return toast.error("Error");
+        }
       }
     }
   };
+
+  useEffect(() => {
+    async function getModels() {
+      const { data, error } = await supabase
+        .from("roomify_models_room")
+        .select()
+        .eq("room", room);
+      if (error) {
+        return toast.error("Error");
+      }
+      if (data) {
+        for (let model of data) {
+          setModels((prevModels) => [
+            ...prevModels,
+            { position: model.position, id: Date.now() },
+          ]);
+        }
+      }
+    }
+    getModels();
+  }, []);
 
   useEffect(() => {
     if (channel) {
@@ -74,9 +106,7 @@ const XRGallery: React.FC<any> = ({
           <FurnitureModel
             position={position.add(referencePoint)}
             ref={reticleRef}
-            objUrl={
-              "https://hlzsmadaanjcpyjghntc.supabase.co/storage/v1/object/public/roomify/tmpzego89o7.obj"
-            }
+            objUrl={objUrl}
             scale={[0.5, 0.5, 0.5]}
           />
         </Fragment>

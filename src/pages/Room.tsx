@@ -180,6 +180,10 @@ function Room() {
               color={color}
               referencePoint={referencePoint}
               channel={channel}
+              objUrl={
+                "https://hlzsmadaanjcpyjghntc.supabase.co/storage/v1/object/public/roomify/tmpzego89o7.obj"
+              }
+              room={room_id}
             />
           ) : (
             <Calibration onCalibrate={setReferencePoint} />
