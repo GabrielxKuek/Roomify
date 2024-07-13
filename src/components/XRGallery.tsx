@@ -73,7 +73,7 @@ const XRGallery: React.FC<any> = ({
         <Fragment key={id}>
           <mesh
             position={position.add(referencePoint)}
-            scale={[1, 1, 1]}
+            scale={[0.3, 0.3, 0.3]}
             castShadow={true}
           >
             <boxGeometry />
