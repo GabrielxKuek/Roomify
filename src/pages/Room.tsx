@@ -112,7 +112,14 @@ function Room() {
       .on("presence", { event: "sync" }, async () => {
         const newState = channel.presenceState();
         console.log("sync", newState);
-        setUsers(newState);
+        const plainObject: any = {};
+
+        for (const key in newState) {
+          if (newState.hasOwnProperty(key)) {
+            plainObject[key] = newState[key];
+          }
+        }
+        setUsers(plainObject);
       })
       .on("presence", { event: "join" }, async ({ key, newPresences }) => {
         console.log("join", key, newPresences);
@@ -196,7 +203,7 @@ function Room() {
         <div
           className={
             showInstructions
-              ? "flex flex-col dark:bg-[#080c15]/10 bg-white/10 py-2 px-4 rounded-lg absolute top-10 left-0 right-0 w-fit mx-auto"
+              ? "flex flex-col dark:bg-[#080c15]/10 bg-white/10 py-2 px-4 rounded-lg absolute top-20 left-0 right-0 w-fit mx-auto"
               : "hidden"
           }
         >
@@ -204,9 +211,11 @@ function Room() {
             return <span key={i}>{e}</span>;
           })}
         </div>
-        <Button onClick={handleButtonClick} className="hidden">as</Button>
+        <Button onClick={handleButtonClick} className="hidden">
+          as
+        </Button>
 
-        <div className="button-container mt-12 flex flex-col w-fit bg-white dark:bg-[#080c15] rounded-r-lg">
+        <div className="button-container mt-20 flex flex-col w-fit bg-white dark:bg-[#080c15] rounded-r-lg">
           <Dialog>
             <DialogTrigger asChild>
               <Button variant={"ghost"}>
