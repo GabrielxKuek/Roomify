@@ -108,6 +108,7 @@ const XRGallery: React.FC<any> = ({
             ref={reticleRef}
             objUrl={objUrl}
             scale={[0.5, 0.5, 0.5]}
+            key={id}
           />
         </Fragment>
       ))}
