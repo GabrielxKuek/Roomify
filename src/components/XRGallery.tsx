@@ -90,12 +90,12 @@ const XRGallery: React.FC<any> = ({
           }
           ghost={0.4}
           rotation-x={-Math.PI / 2}
-          scale={[.5, .5, .5]}
+          scale={[0.5, 0.5, 0.5]}
         />
-        {/* <mesh ref={reticleRef} rotation-x={-Math.PI / 2}>
+        <mesh ref={reticleRef} rotation-x={-Math.PI / 2}>
           <ringGeometry args={[0.1, 0.25, 32]} />
           <meshStandardMaterial color={"white"} />
-        </mesh> */}
+        </mesh>
       </Interactive>
     </>
   );
