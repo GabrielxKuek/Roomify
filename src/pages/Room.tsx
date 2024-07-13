@@ -50,6 +50,18 @@ function Room() {
   const [referencePoint, setReferencePoint] = useState<THREE.Vector3 | null>(
     null
   );
+  const [showInstructions, setShowInstructions] = useState<boolean>(false);
+  const [instructions, setInstructions] = useState<string>("asdqq\nasd");
+
+  useEffect(() => {
+    let value = sessionStorage.getItem("showInstructions");
+    if (value) {
+      setShowInstructions(value == "true");
+    } else {
+      sessionStorage.setItem("showInstructions", "false");
+    }
+    console.log("hi");
+  }, []);
 
   useEffect(() => {
     console.log(overlayRef.current);
@@ -127,6 +139,12 @@ function Room() {
     };
   }, []);
 
+  useEffect(() => {
+    if (referencePoint) {
+      setInstructions("Calibration In Progress...\n");
+    }
+  }, [referencePoint]);
+
   return (
     <>
       {sessionInit && (
@@ -167,12 +185,23 @@ function Room() {
           </div>
           <Button
             className="rounded-full"
-            onClick={handleButtonClick}
+            onClick={() => setShowInstructions((prev) => !prev)}
             size={"sm"}
             variant={"secondary"}
           >
             <BsInfoLg />
           </Button>
+        </div>
+        <div
+          className={
+            showInstructions
+              ? "flex flex-col dark:bg-[#080c15]/10 bg-white/10 py-2 px-4 rounded-lg absolute top-10 left-0 right-0 w-fit mx-auto"
+              : "hidden"
+          }
+        >
+          {instructions.split("\n").map((e, i) => {
+            return <span key={i}>{e}</span>;
+          })}
         </div>
 
         <div className="button-container mt-12 flex flex-col w-fit bg-white dark:bg-[#080c15] rounded-r-lg">

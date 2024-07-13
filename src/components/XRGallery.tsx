@@ -71,7 +71,11 @@ const XRGallery: React.FC<any> = ({
       <ambientLight />
       {models.map(({ position, id }) => (
         <Fragment key={id}>
-          <mesh position={position.add(referencePoint)}>
+          <mesh
+            position={position.add(referencePoint)}
+            scale={[1, 1, 1]}
+            castShadow={true}
+          >
             <boxGeometry />
             <meshStandardMaterial color={color} />
           </mesh>

@@ -19,7 +19,7 @@ const Calibration: React.FC<{
     <Interactive onSelect={handleCalibrate}>
       <mesh ref={ref} visible={!calibrated} position={[0, 0, -2]}>
         <boxGeometry args={[0.1, 0.1, 0.1]} />
-        <meshStandardMaterial color="blue" />
+        <meshStandardMaterial color="red" />
       </mesh>
     </Interactive>
   );

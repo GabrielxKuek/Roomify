@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ThemeToggle } from "@/components/ThemeToggle";
+// import { ThemeToggle } from "@/components/ThemeToggle";
 import { Toaster } from "@/components/ui/sonner";
 
 function Layout() {
@@ -12,9 +12,9 @@ function Layout() {
           <Toaster richColors />
         </div>
       </main>
-      <div className="fixed bottom-3 left-3">
+      {/* <div className="fixed bottom-3 left-3">
         <ThemeToggle></ThemeToggle>
-      </div>
+      </div> */}
     </ThemeProvider>
   );
 }
