@@ -30,6 +30,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { LuUpload } from "react-icons/lu";
+import Dropzone from "@/components/Dropzone";
+// import { TiTick } from "react-icons/ti";
+// import { TiTimes } from "react-icons/ti";
 
 type UserType = {
   user_id: string;
@@ -52,7 +55,13 @@ function Room() {
     null
   );
   const [showInstructions, setShowInstructions] = useState<boolean>(false);
-  const [instructions, setInstructions] = useState<string>("asdqq\nasd");
+  const [instructions, setInstructions] = useState<string>("");
+
+  const [ui, setUi] = useState<React.ReactNode>();
+
+  const [image, setImage] = useState<File | null>(null);
+  const [predictions, setPredictions] = useState<any[]>([]);
+  const [userUploadedImage, setUserUploadedImage] = useState<boolean>(false);
 
   useEffect(() => {
     let value = sessionStorage.getItem("showInstructions");
@@ -163,6 +172,19 @@ function Room() {
     }
   }, [referencePoint]);
 
+  function addUI() {
+    setUi(null);
+    setUi(<div className="absolute rounded-lg">hello</div>);
+  }
+
+  const handleImageDropped = (file: File) => {
+    console.log("Image dropped:", file);
+    setImage(file);
+    setUserUploadedImage(true);
+
+    console.log(setPredictions(["test"]), image);
+    // Perform any additional actions with the file, such as uploading it or making predictions
+  };
   return (
     <>
       {sessionInit && (
@@ -184,6 +206,7 @@ function Room() {
                 "https://hlzsmadaanjcpyjghntc.supabase.co/storage/v1/object/public/roomify/tmpzego89o7.obj"
               }
               room={room_id}
+              addUI={addUI}
             />
           ) : (
             <Calibration onCalibrate={setReferencePoint} />
@@ -268,16 +291,11 @@ function Room() {
               className="sm:max-w-[425px]"
               container={overlayRef.current as Element}
             >
-              <DialogHeader>
-                <DialogTitle>Edit profile</DialogTitle>
-                <DialogDescription>
-                  Make changes to your profile here. Click save when you're
-                  done.
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <Button type="submit">Save changes</Button>
-              </DialogFooter>
+              <Dropzone
+                onImageDropped={handleImageDropped}
+                predictions={predictions}
+                userUploadedImage={userUploadedImage}
+              />
             </DialogContent>
           </Dialog>
 
@@ -304,7 +322,7 @@ function Room() {
             </PopoverContent>
           </Popover>
         </div>
-
+        {ui}
         <Toaster richColors />
       </Overlay>
     </>

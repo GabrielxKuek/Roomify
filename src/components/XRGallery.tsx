@@ -16,6 +16,7 @@ const XRGallery: React.FC<any> = ({
   referencePoint,
   channel,
   objUrl,
+  addUI,
   room,
 }) => {
   const reticleRef = useRef<THREE.Mesh>(null);
@@ -114,13 +115,15 @@ const XRGallery: React.FC<any> = ({
       <ambientLight />
       {models.map(({ position, id }) => (
         <Fragment key={id}>
-          <FurnitureModel
-            position={position.add(referencePoint)}
-            ref={reticleRef}
-            objUrl={objUrl}
-            scale={[0.5, 0.5, 0.5]}
-            key={id}
-          />
+          <Interactive onSelect={addUI}>
+            <FurnitureModel
+              position={position.add(referencePoint)}
+              ref={reticleRef}
+              objUrl={objUrl}
+              scale={[0.5, 0.5, 0.5]}
+              key={id}
+            />
+          </Interactive>
         </Fragment>
       ))}
       <Interactive onSelect={placeModel}>
