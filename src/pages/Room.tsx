@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/dialog";
 import { LuUpload } from "react-icons/lu";
 import Dropzone from "@/components/Dropzone";
+import Markdown from "react-markdown";
 // import { TiTick } from "react-icons/ti";
 // import { TiTimes } from "react-icons/ti";
 
@@ -173,7 +174,47 @@ function Room() {
 
   function addUI() {
     setUi(null);
-    setUi(<div className="absolute rounded-lg">hello</div>);
+    setUi(
+      <div className="flex flex-col dark:bg-[#080c15]/10 bg-white/10 py-2 px-4 rounded-lg absolute bottom-20 left-0 right-0 w-fit mx-auto">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="rounded-full" size={"sm"} variant={"ghost"}>
+              <BsInfoLg size={20} />
+            </Button>
+          </DialogTrigger>
+          <DialogContent
+            className="sm:max-w-[425px]"
+            container={overlayRef.current as Element}
+          >
+            <Markdown>{`### Product: Red Children's Chair
+
+![Red Children's Chair](https://www.ikea.com/sg/en/images/products/mammut-childrens-chair-in-outdoor-red__0727924_pe735940_s5.jpg)
+
+**Price:** $29.99
+
+**Available at:** [IKEA](https://www.ikea.com)
+
+---
+
+**Description:**
+A sturdy, brightly colored chair designed for children. Perfect for use in playrooms, classrooms, or at home. Made from durable materials to withstand daily use.
+
+**Features:**
+- Bright red color
+- Easy to clean
+- Stable and safe design
+- Lightweight and easy to move
+
+**Dimensions:**
+- Height: 52 cm (20.5 inches)
+- Seat height: 30 cm (11.8 inches)
+- Width: 36 cm (14.2 inches)
+- Depth: 33 cm (13 inches)
+`}</Markdown>
+          </DialogContent>
+        </Dialog>
+      </div>
+    );
   }
 
   const handleImageDropped = (file: File) => {
