@@ -175,10 +175,10 @@ function Room() {
   function addUI() {
     setUi(null);
     setUi(
-      <div className="flex flex-col dark:bg-[#080c15]/10 bg-white/10 py-2 px-4 rounded-lg absolute bottom-20 left-0 right-0 w-fit mx-auto">
+      <div className="flex flex-col py-2 px-4 rounded-lg absolute bottom-20 left-0 right-0 w-fit mx-auto">
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="rounded-full" size={"sm"} variant={"ghost"}>
+            <Button className="rounded-full" size={"sm"} variant={"secondary"}>
               <BsInfoLg size={20} />
             </Button>
           </DialogTrigger>
