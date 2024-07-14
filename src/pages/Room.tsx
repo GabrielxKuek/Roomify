@@ -186,9 +186,9 @@ function Room() {
             className="sm:max-w-[425px]"
             container={overlayRef.current as Element}
           >
-            <Markdown>{`### Product: Red Children's Chair
+            <Markdown className={"text-sm"}>{`### Product: Red Children's Chair
 
-![Red Children's Chair](https://www.ikea.com/sg/en/images/products/mammut-childrens-chair-in-outdoor-red__0727924_pe735940_s5.jpg)
+![Red Children's Chair](https://www.ikea.com/sg/en/images/products/mammut-childrens-chair-in-outdoor-red__0727924_pe735940_s5.jpg?width=200&height=200)
 
 **Price:** $29.99
 
