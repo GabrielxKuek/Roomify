@@ -60,7 +60,6 @@ function Room() {
   const [ui, setUi] = useState<React.ReactNode>();
 
   const [image, setImage] = useState<File | null>(null);
-  const [predictions, setPredictions] = useState<any[]>([]);
   const [userUploadedImage, setUserUploadedImage] = useState<boolean>(false);
 
   useEffect(() => {
@@ -181,9 +180,6 @@ function Room() {
     console.log("Image dropped:", file);
     setImage(file);
     setUserUploadedImage(true);
-
-    console.log(setPredictions(["test"]), image);
-    // Perform any additional actions with the file, such as uploading it or making predictions
   };
   return (
     <>
@@ -291,11 +287,15 @@ function Room() {
               className="sm:max-w-[425px]"
               container={overlayRef.current as Element}
             >
-              <Dropzone
-                onImageDropped={handleImageDropped}
-                predictions={predictions}
-                userUploadedImage={userUploadedImage}
-              />
+              <div className="h-44">
+                <Dropzone
+                  onImageDropped={handleImageDropped}
+                  userUploadedImage={userUploadedImage}
+                />
+                {image && (
+                  <img src={URL.createObjectURL(image)} alt="Dropped" />
+                )}
+              </div>
             </DialogContent>
           </Dialog>
 
